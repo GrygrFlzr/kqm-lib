@@ -10,15 +10,19 @@
             if (typeof window === 'undefined') {
                 return {
                     props: {
-                        head: Buffer.from(head, 'base64').toString(),
-                        body: Buffer.from(body, 'base64').toString(),
+                        head: JSON.parse(
+                            Buffer.from(head, 'base64').toString()
+                        ),
+                        body: JSON.parse(
+                            Buffer.from(body, 'base64').toString()
+                        ),
                     },
                 };
             } else {
                 return {
                     props: {
-                        head: atob(head),
-                        body: atob(body),
+                        head: JSON.parse(atob(head)),
+                        body: JSON.parse(atob(body)),
                     },
                 };
             }
@@ -36,4 +40,6 @@
 </script>
 
 <svelte:head>{@html head}</svelte:head>
-{@html body}
+{#key body}
+    {@html body}
+{/key}

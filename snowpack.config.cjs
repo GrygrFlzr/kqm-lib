@@ -2,16 +2,18 @@
 const path = require('path');
 const pkg = require(path.join(process.cwd(), 'package.json'));
 
+const allow = ['@sveltejs/kit'];
+
 // Consult https://www.snowpack.dev to learn about these options
 module.exports = {
     packageOptions: {
         // always include Svelte in your project
-        knownEntrypoints: ['svelte'],
+        knownEntrypoints: ['svelte', 'js-base64'],
         // ignore `import fs from 'fs'` etc
         external: [
             ...require('module').builtinModules,
             ...Object.keys(pkg.dependencies || {}).filter(
-                (module) => module !== '@sveltejs/kit'
+                (module) => !allow.includes(module)
             ),
         ],
     },

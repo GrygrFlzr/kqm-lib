@@ -1,4 +1,5 @@
 <script context="module">
+    import Base64 from 'js-base64';
     /**
      * @type { RouteLoad }
      */
@@ -7,21 +8,12 @@
             const response = await fetch(`/proxy`);
             const { head, body } = await response.json();
 
-            if (typeof window === 'undefined') {
-                return {
-                    props: {
-                        head: Buffer.from(head, 'base64').toString(),
-                        body: Buffer.from(body, 'base64').toString(),
-                    },
-                };
-            } else {
-                return {
-                    props: {
-                        head: atob(head),
-                        body: atob(body),
-                    },
-                };
-            }
+            return {
+                props: {
+                    head: Base64.decode(head),
+                    body: Base64.decode(body),
+                },
+            };
         } catch (e) {
             console.error(e);
         }

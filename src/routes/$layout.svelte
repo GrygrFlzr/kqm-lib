@@ -4,7 +4,7 @@
 </script>
 
 <div>
-    {#key page.path}
+    {#key $page.path}
         <slot />
     {/key}
 </div>
@@ -12,6 +12,9 @@
 <style>
     :root {
         @apply bg-gray-900;
+    }
+    :global(body > div > div > div > div) {
+        @apply bg-gray-700 !important;
     }
     div :global(h1) {
         @apply text-gray-100 !important;
