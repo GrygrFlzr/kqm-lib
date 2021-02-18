@@ -1,5 +1,4 @@
 <script context="module">
-    import Base64 from 'js-base64';
     /**
      * @type { RouteLoad }
      */
@@ -8,12 +7,25 @@
             const response = await fetch(`/proxy`);
             const { head, body } = await response.json();
 
-            return {
-                props: {
-                    head: Base64.decode(head),
-                    body: Base64.decode(body),
-                },
-            };
+            if (typeof window === 'undefined') {
+                return {
+                    props: {
+                        head: JSON.parse(
+                            Buffer.from(head, 'base64').toString()
+                        ),
+                        body: JSON.parse(
+                            Buffer.from(body, 'base64').toString()
+                        ),
+                    },
+                };
+            } else {
+                return {
+                    props: {
+                        head: JSON.parse(atob(head)),
+                        body: JSON.parse(atob(body)),
+                    },
+                };
+            }
         } catch (e) {
             console.error(e);
         }
@@ -28,4 +40,6 @@
 </script>
 
 <svelte:head>{@html head}</svelte:head>
-{@html body}
+{#key body}
+    {@html body}
+{/key}
