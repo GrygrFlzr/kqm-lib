@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "scripts": {
         "dev": "not-svelte-kit dev",
-        "build": "not-svelte-kit build && not-svelte-kit adapt && cp node.index.js ./build/index.js",
+        "build": "not-svelte-kit build",
         "build:vercel": "not-svelte-kit build && cp -R ./node_modules/@sveltejs/adapter-vercel/files ./node_modules/@sveltejs/files && not-svelte-kit adapt",
         "build:orig": "not-svelte-kit build",
         "adapt": "not-svelte-kit adapt",
