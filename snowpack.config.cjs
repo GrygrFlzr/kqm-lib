@@ -10,7 +10,9 @@ module.exports = {
         // ignore `import fs from 'fs'` etc
         external: [
             ...require('module').builtinModules,
-            ...Object.keys(pkg.dependencies || {}),
+            ...Object.keys(pkg.dependencies || {}).filter(
+                (module) => module !== '@sveltejs/kit'
+            ),
         ],
     },
     plugins: [
