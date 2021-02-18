@@ -1,0 +1,13 @@
+.DS_Store
+.env
+node_modules
+package-lock.json
+/.svelte
+/build
+/functions
+/api
+/public
+.vercelignore
+.vercel
+.vercel_build_output
+vercel.json

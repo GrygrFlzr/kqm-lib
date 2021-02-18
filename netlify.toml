@@ -1,0 +1,5 @@
+[build]
+    command = "npm run build && npm run adapt"
+    publish = "build"
+    functions = "functions"
+    environment = { NODE_VERSION = "14" }
