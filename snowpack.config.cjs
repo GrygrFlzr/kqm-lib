@@ -8,7 +8,7 @@ const allow = ['@sveltejs/kit'];
 module.exports = {
     packageOptions: {
         // always include Svelte in your project
-        knownEntrypoints: ['svelte', 'js-base64'],
+        knownEntrypoints: ['svelte'],
         // ignore `import fs from 'fs'` etc
         external: [
             ...require('module').builtinModules,

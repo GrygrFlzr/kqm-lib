@@ -1,9 +1,42 @@
 <script>
     import { page } from '$app/stores';
     import './_global.pcss';
+
+    function replaceMainSiteLink(node) {
+        async function replaceLink(siteLink) {
+            if (siteLink.href === 'http://keqingmains.com') {
+                return;
+            }
+            siteLink.href = 'http://keqingmains.com';
+            const siteName = siteLink.querySelector(
+                '[class*="--spaceNameText-"]'
+            );
+            if (siteName) {
+                siteName.innerText = 'Keqing Mains';
+            }
+        }
+        async function replace() {
+            const siteLinks = node.querySelectorAll('[class*="--logoLink-"]');
+            if (siteLinks.length > 0) {
+                for (const siteLink of siteLinks) {
+                    replaceLink(siteLink);
+                }
+            }
+        }
+        replace();
+        const overrideReact = setInterval(replace, 100);
+        return {
+            update() {
+                replace();
+            },
+            destroy() {
+                clearInterval(overrideReact);
+            },
+        };
+    }
 </script>
 
-<div>
+<div use:replaceMainSiteLink={$page.path}>
     {#key $page.path}
         <slot />
     {/key}
@@ -15,6 +48,14 @@
     }
     :global(body > div > div > div > div) {
         @apply bg-gray-700 !important;
+    }
+    div :global(ul) {
+        @apply list-disc !important;
+        @apply text-gray-100;
+    }
+    div :global(ol) {
+        @apply list-decimal !important;
+        @apply text-gray-100;
     }
     div :global(h1) {
         @apply text-gray-100 !important;
@@ -105,6 +146,9 @@
         @apply bg-gray-700 text-gray-200 border-gray-500 !important;
     }
     div :global(ul [class^='blockParagraph-']) {
+        @apply text-gray-300 !important;
+    }
+    div :global([class^='blockHeadingContent-']) {
         @apply text-gray-300 !important;
     }
 </style>
